@@ -13,8 +13,8 @@ class UserService {
     return this.instance;
   }
 
-  create(user: User): User {
-    const newUser = new User(user.username, user.password);
+  create(name: string, password: string): User {
+    const newUser = new User(name, password);
     this.users.push(newUser);
     return newUser;
   }

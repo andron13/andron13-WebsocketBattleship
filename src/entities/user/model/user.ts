@@ -1,15 +1,22 @@
 export class User {
   id: string;
-  username: string;
+  name: string;
   password: string;
   winCount: number;
 
-  constructor(username: string, password: string) {
-    this.username = username;
+  constructor(name: string, password: string) {
+    this.name = name;
     this.password = password;
-    this.id = User.countID();
+    this.winCount = 0;
+    this.id = User.generateID();
+    console.log(this);
   }
-  static countID() {
+
+  static generateID() {
     return Date.now().toString();
+  }
+
+  setWin() {
+    this.winCount++;
   }
 }
