@@ -32,6 +32,11 @@ class UserService {
   getAll(): User[] {
     return this.users;
   }
+  getWinners() {
+    return this.users.map((user) => {
+      return { name: user.name, wins: user.wins };
+    });
+  }
 }
 
 export const users = UserService.getInstance();

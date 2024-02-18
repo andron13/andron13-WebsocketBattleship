@@ -101,9 +101,7 @@ export interface UpdateRoomDataResponse {
   id: number;
 }
 
-export interface UpdateWinnersDataResponse {
-  winners: Winner[];
-}
+export type UpdateWinnersDataResponse = Winner[];
 
 export interface Winner {
   name: string;

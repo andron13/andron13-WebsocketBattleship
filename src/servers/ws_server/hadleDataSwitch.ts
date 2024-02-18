@@ -1,12 +1,13 @@
+import * as ws from 'ws';
+
 import { Message, MessageTypesWS } from '../../types';
 
-import { createUserAndSendResponse } from './regHandle';
+import { regUserHandler } from './regHandle';
 
-export const handleData = (message: Message, wsClient) => {
-  // console.log({ message });
+export const handleData = (message: Message, wsClient: ws) => {
   switch (message.type) {
     case MessageTypesWS.reg:
-      createUserAndSendResponse(message, wsClient);
+      regUserHandler(message, wsClient);
       break;
     default:
       console.log('default', message.type);
