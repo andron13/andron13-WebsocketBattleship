@@ -1,10 +1,7 @@
 import { WebSocketServer } from 'ws';
 
-import { httpServer } from './src/servers/http_server';
-import { onConnect } from './src/servers/ws_server/webSocketHandler';
-
-const HTTP_PORT = 8181;
-const WS_PORT = 3000;
+import { httpServer, onConnect } from './src/servers';
+import { HTTP_PORT, WS_PORT } from './src/utils/config';
 
 console.log(`Starting static http server on http://localhost:${HTTP_PORT}`);
 httpServer.listen(HTTP_PORT);

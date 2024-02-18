@@ -1,3 +1,4 @@
+import { Message, RegDataRequest } from '../../../types';
 import { User } from '../model/user';
 
 class UserService {
@@ -35,3 +36,12 @@ class UserService {
 }
 
 export const users = UserService.getInstance();
+
+export const createUser = (message: Message) => {
+  const name = (message.data as RegDataRequest).name;
+  const password = (message.data as RegDataRequest).password;
+  const newUser: User = users.create(name, password);
+  // sendDataBack
+  const userID = newUser.id;
+  console.log({ userID });
+};

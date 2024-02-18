@@ -19,55 +19,112 @@ export enum MessageTypesWS {
 }
 
 export type MessageData =
-  | RequestRegData
-  | ResponseRegData
-  | AddShipsData
-  | AttackData
-  | AddUserToRoomData
-  | CreateGameData
+  | RegDataRequest
+  | RegDataResponse
+  | AddShipsDataRequest
+  | AttackDataRequest
+  | AttackDataResponse
+  | AddUserToRoomDataRequest
+  | CreateGameDataResponse
+  | CreateRoomData
   | FinishData
-  | RandomAttackData
-  | StartGameData
+  | RandomAttackDataRequest
+  | StartGameDataResponse
   | TurnData
-  | UpdateRoomData
-  | ResponseUpdateWinnersData;
+  | UpdateRoomDataResponse
+  | UpdateWinnersDataResponse;
 
-export interface RequestRegData {
+export interface RegDataRequest {
   name: string;
   password: string;
 }
-export interface ResponseRegData {
+export interface RegDataResponse {
   name: string;
   password: string;
   error: boolean;
   errorText: string;
 }
 
-export interface AddShipsData {}
+export interface AddShipsDataRequest {
+  gameId: number;
+  ships: Ship[];
+  indexPlayer: number;
+}
 
-export interface AttackData {}
+export interface AttackDataRequest {
+  gameId: number;
+  x: number;
+  y: number;
+  indexPlayer: number;
+}
+export interface AttackDataResponse {
+  position: {
+    x: number;
+    y: number;
+  };
+  currentPlayer: number;
+  status: 'miss' | 'killed' | 'shot';
+}
 
-export interface AddUserToRoomData {}
+export interface AddUserToRoomDataRequest {
+  indexRoom: number;
+}
 
-export interface CreateGameData {}
+export interface CreateGameDataResponse {
+  idGame: number;
+  idPlayer: number;
+}
 
 export type CreateRoomData = string;
 
-export interface FinishData {}
+export interface FinishData {
+  winPlayer: number;
+}
 
-export interface RandomAttackData {}
+export interface RandomAttackDataRequest {
+  gameId: number;
+  indexPlayer: number;
+}
 
-export interface StartGameData {}
+export interface StartGameDataResponse {
+  ships: Ship[];
+  currentPlayerIndex: number;
+}
 
-export interface TurnData {}
+export interface TurnData {
+  currentPlayer: number;
+}
 
-export interface UpdateRoomData {}
+export interface UpdateRoomDataResponse {
+  type: MessageTypesWS;
+  data: OnePlayerRooms[];
+  id: number;
+}
 
-export interface ResponseUpdateWinnersData {
+export interface UpdateWinnersDataResponse {
   winners: Winner[];
 }
 
 export interface Winner {
   name: string;
   wins: number;
+}
+export interface Ship {
+  position: {
+    x: number;
+    y: number;
+  };
+  direction: boolean;
+  length: number;
+  type: 'small' | 'medium' | 'large' | 'huge';
+}
+
+export interface OnePlayerRooms {
+  roomId: number;
+  roomUsers: [
+    {
+      name: string;
+      index: number;
+    },
+  ];
 }
