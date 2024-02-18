@@ -1,9 +1,9 @@
 import * as ws from 'ws';
 
+import { rooms } from '../../entities/room';
 import { User, users } from '../../entities/user';
 import {
   Message,
-  MessageData,
   MessageTypesWS,
   RegDataRequest,
   RegDataResponse,
@@ -16,10 +16,13 @@ export const regUserHandler = (message: Message, wsClient: ws) => {
   const newUser: User = users.create(name, password);
   // <-- sendDataBack RegDataResponse
   regResponse(wsClient, newUser);
+  console.log('regResponse');
   // <-- update_room
   updateRoom(wsClient);
+  console.log('updateRoom');
   // <--   update_winners
   updateWinners(wsClient);
+  console.log('updateWinners');
 };
 
 const regResponse = (wsClient: ws, user: User) => {
@@ -28,28 +31,28 @@ const regResponse = (wsClient: ws, user: User) => {
     name: user.name,
     index: user.id,
     error: false,
-    errorText: 'string',
+    errorText: '',
   };
   const result = JSON.stringify(serverAnswer(payloadData, responseType));
   wsClient.send(result);
 };
-const updateRoom = (wsClient) => {
-  const result = '';
+const updateRoom = (wsClient: ws) => {
+  const roomsData = rooms.getAll();
+  const result = serverAnswer(roomsData, MessageTypesWS.update_room);
+  console.log(result);
   wsClient.send(JSON.stringify(result));
 };
 const updateWinners = (wsClient: ws) => {
   const winners: UpdateWinnersDataResponse = users.getWinners();
   const result = serverAnswer(winners, MessageTypesWS.update_winners);
+  console.log(result);
   wsClient.send(JSON.stringify(result));
 };
 
-const serverAnswer = (
-  payloadData: MessageData,
-  type: MessageTypesWS,
-): Message => {
+const serverAnswer = (payloadData, type: MessageTypesWS): Message => {
   return {
     type: type,
-    data: payloadData,
+    data: JSON.stringify(payloadData),
     id: 0,
   };
 };

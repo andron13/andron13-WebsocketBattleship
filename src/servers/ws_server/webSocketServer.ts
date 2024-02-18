@@ -5,7 +5,7 @@ import { toParseData } from '../../utils/parsedData';
 
 import { handleData } from './hadleDataSwitch';
 
-export const onConnect = (wsClient: ws.WebSocket) => {
+export const onConnect = (wsClient: ws) => {
   wsClient.on('message', (data: ws.RawData) => {
     const parsedData = toParseData(data);
     handleData(parsedData, wsClient);

@@ -2,7 +2,7 @@ import * as ws from 'ws';
 
 import { Message, MessageTypesWS } from '../../types';
 
-import { regUserHandler } from './regHandle';
+import { regUserHandler } from './regHandler';
 
 export const handleData = (message: Message, wsClient: ws) => {
   switch (message.type) {
