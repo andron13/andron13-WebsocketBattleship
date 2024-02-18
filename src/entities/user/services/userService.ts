@@ -1,4 +1,3 @@
-import { Message, RegDataRequest } from '../../../types';
 import { User } from '../model/user';
 
 class UserService {
@@ -20,11 +19,11 @@ class UserService {
     return newUser;
   }
 
-  findOne(id: string): User | undefined {
+  findOne(id: number): User | undefined {
     return this.users.find((user) => user.id === id);
   }
 
-  delete(id: string): boolean {
+  delete(id: number): boolean {
     const initialLength = this.users.length;
     this.users = this.users.filter((user) => user.id !== id);
     return this.users.length < initialLength;
@@ -36,12 +35,3 @@ class UserService {
 }
 
 export const users = UserService.getInstance();
-
-export const createUser = (message: Message) => {
-  const name = (message.data as RegDataRequest).name;
-  const password = (message.data as RegDataRequest).password;
-  const newUser: User = users.create(name, password);
-  // sendDataBack
-  const userID = newUser.id;
-  console.log({ userID });
-};

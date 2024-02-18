@@ -40,7 +40,7 @@ export interface RegDataRequest {
 }
 export interface RegDataResponse {
   name: string;
-  password: string;
+  index: number;
   error: boolean;
   errorText: string;
 }

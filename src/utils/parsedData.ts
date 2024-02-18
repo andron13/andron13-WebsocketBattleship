@@ -1,16 +1,12 @@
-export const parseData = (data) => {
+export const toParseData = (data) => {
   let parsedData;
-  const dataAsString = data.toString();
   try {
-    parsedData = JSON.parse(dataAsString);
+    parsedData = JSON.parse(data);
   } catch (e) {
     console.error('Error parsing data:', e);
   }
-
-  const result = {
+  return {
     ...parsedData,
     data: parsedData.data ? JSON.parse(parsedData.data) : '',
   };
-  console.log({ result });
-  return result;
 };

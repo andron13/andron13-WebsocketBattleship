@@ -1,5 +1,5 @@
 export class User {
-  id: string;
+  id: number;
   name: string;
   password: string;
   winCount: number;
@@ -9,11 +9,10 @@ export class User {
     this.password = password;
     this.winCount = 0;
     this.id = User.generateID();
-    console.log(this);
   }
 
   static generateID() {
-    return Date.now().toString();
+    return Date.now();
   }
 
   setWin() {
