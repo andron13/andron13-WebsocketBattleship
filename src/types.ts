@@ -16,6 +16,7 @@ export enum MessageTypesWS {
   turn = 'turn',
   update_room = 'update_room',
   update_winners = 'update_winners',
+  singlePlay = 'single_play',
 }
 
 export type MessageData =
