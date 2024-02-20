@@ -2,6 +2,7 @@ import { rooms } from '../../../entities/room';
 import { users } from '../../../entities/user';
 import { Message, WebSocketWithId } from '../../../types';
 
+import { createGame } from './createGame';
 import { updateRoom } from './serverAnswer';
 
 export const addUserToRoom = (message: Message, wsClient: WebSocketWithId) => {
@@ -11,4 +12,11 @@ export const addUserToRoom = (message: Message, wsClient: WebSocketWithId) => {
     rooms.addNewUserToRoom(roomID, user.name, user.id);
   }
   updateRoom();
+  if (inRoomTwoPlayer(roomID)) {
+    createGame(roomID);
+  }
+};
+
+export const inRoomTwoPlayer = (id: number) => {
+  return rooms.findOne(id)?.roomUsers.length === 2;
 };
