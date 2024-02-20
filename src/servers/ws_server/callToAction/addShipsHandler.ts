@@ -1,7 +1,5 @@
-import * as ws from 'ws';
+import { Message, WebSocketWithId } from '../../../types';
 
-import { Message } from '../../../types';
-
-export const addShips = (message: Message, wsClient: ws) => {
+export const addShips = (message: Message, wsClient: WebSocketWithId) => {
   console.log(message);
 };

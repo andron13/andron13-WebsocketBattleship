@@ -1,3 +1,8 @@
+import { WebSocket } from 'ws';
+
+export interface WebSocketWithId extends WebSocket {
+  id: number;
+}
 export interface Message {
   type: MessageTypesWS;
   data: MessageData;

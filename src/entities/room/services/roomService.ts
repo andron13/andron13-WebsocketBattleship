@@ -32,6 +32,18 @@ class RoomService {
     return this.rooms;
   }
 
+  /**
+   * Adds a new user to a specified room.
+   *
+   * @param {number} roomId - The ID of the room where the new user is to be added.
+   * @param {string} username - The username of the new user to be added.
+   * @param {number} userIndex - The index position where the new user is to be added in the
+   *                              room's user list.
+   *
+   * @returns {void}
+   *
+   * @throws {Error} Will throw an error if the specified room does not exist.
+   */
   addNewUserToRoom(roomId: number, username: string, userIndex: number): void {
     const room = this.findOne(roomId);
     if (room) {

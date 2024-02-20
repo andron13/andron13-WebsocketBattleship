@@ -1,6 +1,4 @@
-import * as ws from 'ws';
-
-import { Message, MessageTypesWS } from '../../types';
+import { Message, MessageTypesWS, WebSocketWithId } from '../../types';
 
 import {
   addShips,
@@ -11,7 +9,7 @@ import {
 } from './callToAction';
 import { attack, randomAttack } from './callToAction/attackHandler';
 
-export const handleData = (message: Message, wsClient: ws) => {
+export const handleData = (message: Message, wsClient: WebSocketWithId) => {
   switch (message.type) {
     case MessageTypesWS.reg:
       regUserHandler(message, wsClient); //done
@@ -20,7 +18,7 @@ export const handleData = (message: Message, wsClient: ws) => {
       createRoom(); // done
       break;
     case MessageTypesWS.add_user_to_room:
-      addUserToRoom(message, wsClient);
+      addUserToRoom(message, wsClient); // done
       break;
     case MessageTypesWS.add_ships:
       addShips(message, wsClient);
