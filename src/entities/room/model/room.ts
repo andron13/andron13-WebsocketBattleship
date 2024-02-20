@@ -9,6 +9,7 @@ export class Room {
 
   constructor() {
     this.roomId = Date.now();
+    this.roomUsers = [];
   }
 
   setRoomUsers(name: string, index: number) {

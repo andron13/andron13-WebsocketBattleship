@@ -14,10 +14,10 @@ import { attack, randomAttack } from './callToAction/attackHandler';
 export const handleData = (message: Message, wsClient: ws) => {
   switch (message.type) {
     case MessageTypesWS.reg:
-      regUserHandler(message, wsClient);
+      regUserHandler(message, wsClient); //done
       break;
     case MessageTypesWS.create_room:
-      createRoom(message, wsClient);
+      createRoom(); // done
       break;
     case MessageTypesWS.add_user_to_room:
       addUserToRoom(message, wsClient);

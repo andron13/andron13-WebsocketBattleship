@@ -1,7 +1,16 @@
-import * as ws from 'ws';
+import { rooms } from '../../../entities/room';
+import { MessageTypesWS } from '../../../types';
 
-import { Message } from '../../../types';
+import {
+  sendResponseAllClients,
+  serverAnswer,
+  updateRoom,
+} from './serverAnswer';
 
-export const createRoom = (message: Message, wsClient: ws) => {
-  console.log(message);
+export const createRoom = () => {
+  rooms.create();
+  const payload = rooms.getAll();
+  const result = serverAnswer(payload, MessageTypesWS.update_room);
+  updateRoom();
+  sendResponseAllClients(result);
 };

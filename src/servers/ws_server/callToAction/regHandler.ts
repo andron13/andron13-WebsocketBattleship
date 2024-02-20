@@ -16,13 +16,10 @@ export const regUserHandler = (message: Message, wsClient: ws) => {
   const newUser: User = users.create(name, password);
   // <-- sendDataBack RegDataResponse
   regResponse(wsClient, newUser);
-  // console.log('regResponse');
   // <-- update_room
-  updateRoom(wsClient);
-  // console.log('updateRoom');
+  updateRoom();
   // <--   update_winners
-  updateWinners(wsClient);
-  // console.log('updateWinners');
+  updateWinners();
 };
 
 const regResponse = (wsClient: ws, user: User) => {

@@ -1,5 +1,6 @@
-import * as ws from 'ws';
+import { WebSocket } from 'ws';
 
+import { webSocketServer } from '../../../../index';
 import { rooms } from '../../../entities/room';
 import { users } from '../../../entities/user';
 import {
@@ -16,15 +17,22 @@ export const serverAnswer = (payloadData, type: MessageTypesWS): Message => {
   };
 };
 
-export const updateRoom = (wsClient: ws) => {
+export const updateRoom = () => {
   const roomsData = rooms.getAll();
   const result = serverAnswer(roomsData, MessageTypesWS.update_room);
-  console.log(result);
-  wsClient.send(JSON.stringify(result));
+  sendResponseAllClients(result);
 };
-export const updateWinners = (wsClient: ws) => {
+
+export const updateWinners = () => {
   const winners: UpdateWinnersDataResponse = users.getWinners();
   const result = serverAnswer(winners, MessageTypesWS.update_winners);
-  console.log(result);
-  wsClient.send(JSON.stringify(result));
+  sendResponseAllClients(result);
+};
+
+export const sendResponseAllClients = (data: Message) => {
+  webSocketServer.clients.forEach((client: WebSocket) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
 };
