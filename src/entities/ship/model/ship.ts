@@ -23,11 +23,28 @@ export class Ship {
   public attacksLog: Position[] = [];
   public state: ShipState;
   constructor(
-    public position: Position,
+    public firstCellPosition: Position,
     public direction: boolean,
     public length: number,
     public type: ShipType,
-  ) {}
+  ) {
+    this.state = ShipState.Intact;
+    this.shipsInit(length, firstCellPosition, direction);
+  }
+
+  shipsInit(length: number, firstCellPosition: Position, direction: boolean) {
+    const { x, y } = firstCellPosition;
+    for (let i = 0; i < length; i++) {
+      const cell: Cell = {
+        position: {
+          x: direction ? x : x + i,
+          y: direction ? y + i : y,
+        },
+        state: CellState.Intact,
+      };
+      this.cells.push(cell);
+    }
+  }
 
   isHit(attack: Position) {
     this.attacksLog.push(attack);
@@ -58,5 +75,12 @@ export class Ship {
   }
   static positionsAreEqual(pos1: Position, pos2: Position): boolean {
     return pos1.x === pos2.x && pos1.y === pos2.y;
+  }
+  toString(): string {
+    return (
+      `Type: ${this.type}, First Cell: (${this.firstCellPosition.x}, ${this.firstCellPosition.y}), ` +
+      `Direction: ${this.direction ? 'Vertical' : 'Horizontal'}, Length: ${this.length}, ` +
+      `State: ${this.state}, Cells: ${this.cells.length}`
+    );
   }
 }

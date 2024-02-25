@@ -15,4 +15,6 @@ export class ErrorMessages {
     `User (${name}) exist in db, plz choose other name`;
   static gameExist = (roomId: number) =>
     `A game already exists for room ${roomId}`;
+  static playerNotFound = (playerID: number) =>
+    `player (${playerID}) Not Found`;
 }

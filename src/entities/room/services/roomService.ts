@@ -58,10 +58,10 @@ class RoomService {
       if (room) {
         room.setRoomUsers(username, userIndex);
       } else {
-        console.error(ErrorMessages.roomNotFound);
+        console.log(ErrorMessages.roomNotFound);
       }
     } else {
-      console.error(ErrorMessages.userIsInRoom(username, roomId));
+      console.log(ErrorMessages.userIsInRoom(username, roomId));
     }
   }
 

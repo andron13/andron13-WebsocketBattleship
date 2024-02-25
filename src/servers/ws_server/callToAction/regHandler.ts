@@ -1,4 +1,5 @@
 import { User, users } from '../../../entities/user';
+import { wsClients } from '../../../entities/websocketsDB';
 import {
   Message,
   MessageTypesWS,
@@ -15,13 +16,9 @@ export const regUserHandler = (message: Message, wsClient: WebSocketWithId) => {
   const newUser: User | undefined = users.create(name, password);
   if (!newUser) return;
   wsClient.id = newUser.id;
-  // console.log('wsClient.id', wsClient.id);
-  // console.log('newUser.id', newUser.id);
-  // <-- sendDataBack RegDataResponse
+  wsClients.push(wsClient);
   regResponse(wsClient, newUser);
-  // <-- update_room
   updateRoom();
-  // <--   update_winners
   updateWinners();
 };
 

@@ -21,9 +21,9 @@ export const handleData = (message: Message, wsClient: WebSocketWithId) => {
       addUserToRoom(message, wsClient); // done
       break;
     case MessageTypesWS.add_ships:
-      addShips(message, wsClient);
+      addShips(message, wsClient); // done
       break;
-    case MessageTypesWS.attack: // miss
+    case MessageTypesWS.attack: //
       attack(message, wsClient);
       break;
     case MessageTypesWS.randomAttack: //(shoot, kill, miss)

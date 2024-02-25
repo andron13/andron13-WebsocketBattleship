@@ -1,4 +1,5 @@
 import { ErrorMessages } from '../../../utils/errors';
+import { Ship } from '../../ship/model/ship';
 import { Game } from '../model/game';
 
 class GameService {
@@ -26,6 +27,12 @@ class GameService {
   }
   getAll() {
     return this.games;
+  }
+
+  addShipsToGame(gameId: number, playerID: number, ships: Ship[]) {
+    const game = this.findOne(gameId);
+    game?.setShips(playerID, ships);
+    return game;
   }
 }
 
