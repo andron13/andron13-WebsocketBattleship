@@ -65,6 +65,7 @@ export interface AttackDataRequest {
   y: number;
   indexPlayer: number;
 }
+
 export interface AttackDataResponse {
   position: {
     x: number;

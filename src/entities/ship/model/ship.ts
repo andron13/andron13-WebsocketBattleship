@@ -1,27 +1,10 @@
-export type Position = {
-  x: number;
-  y: number;
-};
-export type ShipType = 'small' | 'medium' | 'large' | 'huge';
+import { positionsAreEqual } from '../service/shipService';
 
-export enum CellState {
-  Intact = 'intact',
-  Hit = 'hit',
-}
-export type Cell = {
-  position: Position;
-  state: CellState;
-};
-
-export enum ShipState {
-  Intact = 'intact',
-  Hit = 'hit',
-  Sunk = 'sunk',
-}
 export class Ship {
   public cells: Cell[] = [];
   public attacksLog: Position[] = [];
   public state: ShipState;
+
   constructor(
     public firstCellPosition: Position,
     public direction: boolean,
@@ -50,7 +33,7 @@ export class Ship {
     this.attacksLog.push(attack);
     const hit = this.cells.some((cell) => {
       if (
-        Ship.positionsAreEqual(cell.position, attack) &&
+        positionsAreEqual(cell.position, attack) &&
         cell.state === CellState.Intact
       ) {
         cell.state = CellState.Hit;
@@ -73,9 +56,7 @@ export class Ship {
     }
     return dead;
   }
-  static positionsAreEqual(pos1: Position, pos2: Position): boolean {
-    return pos1.x === pos2.x && pos1.y === pos2.y;
-  }
+
   toString(): string {
     return (
       `Type: ${this.type}, First Cell: (${this.firstCellPosition.x}, ${this.firstCellPosition.y}), ` +
@@ -83,4 +64,26 @@ export class Ship {
       `State: ${this.state}, Cells: ${this.cells.length}`
     );
   }
+}
+
+export type Position = {
+  x: number;
+  y: number;
+};
+export type ShipType = 'small' | 'medium' | 'large' | 'huge';
+
+export enum CellState {
+  Intact = 'intact',
+  Hit = 'hit',
+}
+
+export type Cell = {
+  position: Position;
+  state: CellState;
+};
+
+export enum ShipState {
+  Intact = 'intact',
+  Hit = 'hit',
+  Sunk = 'sunk',
 }
