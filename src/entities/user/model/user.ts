@@ -3,6 +3,7 @@ export class User {
   name: string;
   password: string;
   wins: number;
+  roomId: number;
 
   constructor(name: string, password: string) {
     this.name = name;

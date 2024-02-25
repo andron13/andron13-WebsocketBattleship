@@ -1,5 +1,3 @@
-import * as console from 'console';
-
 import { ErrorMessages } from '../../../utils/errors';
 
 export interface RoomUser {
@@ -8,10 +6,12 @@ export interface RoomUser {
 }
 
 export class Room {
+  roomOwner: number;
   roomId: number;
   roomUsers: RoomUser[];
 
-  constructor() {
+  constructor(roomOwner: number) {
+    this.roomOwner = roomOwner;
     this.roomId = Date.now();
     this.roomUsers = [];
   }
@@ -29,7 +29,7 @@ export class Room {
   setRoomUsers(name: string, index: number): void {
     for (const user of this.roomUsers) {
       if (user.name === name) {
-        console.error(ErrorMessages.userAlreadyExists);
+        console.error(ErrorMessages.existingUserInRoom);
         return;
       }
     }

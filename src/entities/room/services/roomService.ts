@@ -14,8 +14,12 @@ class RoomService {
     return this.instance;
   }
 
-  create() {
-    const newRoom: Room = new Room();
+  create(playerID: number) {
+    if (this.findOneByOwnerID(playerID)) {
+      console.log(ErrorMessages.roomLimitPerPlayer);
+      return undefined;
+    }
+    const newRoom: Room = new Room(playerID);
     this.rooms.push(newRoom);
     return newRoom;
   }
@@ -24,6 +28,9 @@ class RoomService {
     this.rooms = this.rooms.filter((room) => room.roomId !== roomId);
   }
 
+  findOneByOwnerID(playerID: number): Room | undefined {
+    return this.rooms.find((room): boolean => room.roomOwner === playerID);
+  }
   findOne(roomId: number): Room | undefined {
     return this.rooms.find((room): boolean => room.roomId === roomId);
   }
