@@ -1,5 +1,7 @@
 import { WebSocket } from 'ws';
 
+import { Ship } from './entities/ship/model/ship';
+
 export interface WebSocketWithId extends WebSocket {
   id: number;
 }
@@ -113,16 +115,6 @@ export interface Winner {
   name: string;
   wins: number;
 }
-export interface Ship {
-  position: {
-    x: number;
-    y: number;
-  };
-  direction: boolean;
-  length: number;
-  type: 'small' | 'medium' | 'large' | 'huge';
-}
-
 export interface OnePlayerRooms {
   roomId: number;
   roomUsers: [
