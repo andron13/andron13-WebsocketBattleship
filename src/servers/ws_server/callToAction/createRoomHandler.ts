@@ -7,8 +7,8 @@ import {
   updateRoom,
 } from './serverAnswer';
 
-export const createRoom = () => {
-  rooms.create();
+export const createRoom = (wsClient) => {
+  rooms.create(wsClient.id);
   const payload = rooms.getAll();
   const result = serverAnswer(payload, MessageTypesWS.update_room);
   updateRoom();

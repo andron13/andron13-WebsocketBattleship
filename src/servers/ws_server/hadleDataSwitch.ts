@@ -15,7 +15,7 @@ export const handleData = (message: Message, wsClient: WebSocketWithId) => {
       regUserHandler(message, wsClient); //done
       break;
     case MessageTypesWS.create_room:
-      createRoom(); // done
+      createRoom(wsClient); // done
       break;
     case MessageTypesWS.add_user_to_room:
       addUserToRoom(message, wsClient); // done

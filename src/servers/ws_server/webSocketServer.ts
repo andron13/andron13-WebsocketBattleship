@@ -13,7 +13,7 @@ export const onConnect = (wsClient: WebSocketWithId) => {
   });
 
   wsClient.on('close', () => {
-    console.log(ErrorMessages.wsClientClose);
+    console.log(ErrorMessages.wsClientDisconnection);
   });
 
   wsClient.on('error', () => {

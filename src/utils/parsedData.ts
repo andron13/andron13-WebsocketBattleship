@@ -1,5 +1,5 @@
 export const toParseData = (data) => {
-  let parsedData;
+  let parsedData: any;
   try {
     parsedData = JSON.parse(data);
   } catch (e) {
