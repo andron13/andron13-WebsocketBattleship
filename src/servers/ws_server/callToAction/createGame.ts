@@ -1,40 +1,31 @@
-//{
-//     type: "create_game", //send for both players in the room
-//     data:
-//         {
-//             idGame: <number>,
-//             idPlayer: <number>, \* id for player in the game session, who have sent add_user_to_room request, not enemy *\
-//         },
-//     id: 0,
-// }
-// 1. create_game
-// 2. add_ships
-// 3. start_game
-
+import { webSocketServer } from '../../../../index';
+import { Game } from '../../../entities/game/model/game';
+import { games } from '../../../entities/game/service/gameService';
 import {
   CreateGameDataResponse,
   MessageTypesWS,
-  RegDataResponse,
   WebSocketWithId,
 } from '../../../types';
 
 import { serverAnswer } from './serverAnswer';
 
-export const createGame = (roomID) => {
+export const createGame = (roomID: number) => {
   console.log('createGame');
-  // 1. послать сооб
+  // 1. Send a message to each client
+  webSocketServer.clients.forEach((client: WebSocketWithId) => {
+    console.log('client.id', client.id);
+    client.send(createGameResponse(roomID, client.id));
+  });
 };
 
-export const startGame = (roomID) => {
-  console.log('startGame');
-};
-
-const createGameResponse = (wsClient: WebSocketWithId) => {
+const createGameResponse = (roomID: number, wsID: number) => {
+  const game: Game = games.create(roomID);
+  console.log({ game });
+  console.log({ wsID });
   const responseType: MessageTypesWS = MessageTypesWS.create_game;
   const payloadData: CreateGameDataResponse = {
-    idPlayer: 0,
-    idGame: 0,
+    idPlayer: wsID,
+    idGame: game.gameId,
   };
-  const result = JSON.stringify(serverAnswer(payloadData, responseType));
-  wsClient.send(result);
+  return JSON.stringify(serverAnswer(payloadData, responseType));
 };

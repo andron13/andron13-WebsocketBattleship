@@ -1,3 +1,4 @@
+import { ErrorMessages } from '../../../utils/errors';
 import { User } from '../model/user';
 
 class UserService {
@@ -13,7 +14,11 @@ class UserService {
     return this.instance;
   }
 
-  create(name: string, password: string): User {
+  create(name: string, password: string): User | undefined {
+    if (this.findeByName(name)) {
+      console.log(ErrorMessages.userWithThisNameExist(name));
+      return undefined;
+    }
     const newUser = new User(name, password);
     this.users.push(newUser);
     return newUser;
@@ -23,6 +28,9 @@ class UserService {
     return this.users.find((user) => user.id === id);
   }
 
+  findeByName(name: string) {
+    return this.users.find((user) => user.name === name);
+  }
   delete(id: number): boolean {
     const initialLength = this.users.length;
     this.users = this.users.filter((user) => user.id !== id);

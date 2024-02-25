@@ -1,5 +1,5 @@
 import { ErrorMessages } from '../../../utils/errors';
-import { Room } from '../model/room';
+import { Room, RoomUser } from '../model/room';
 
 class RoomService {
   private static instance: RoomService;
@@ -53,12 +53,25 @@ class RoomService {
    * @throws {Error} Will throw an error if the specified room does not exist.
    */
   addNewUserToRoom(roomId: number, username: string, userIndex: number): void {
-    const room = this.findOne(roomId);
-    if (room) {
-      room.setRoomUsers(username, userIndex);
+    if (!this.checkUserInOtherRooms(username)) {
+      const room = this.findOne(roomId);
+      if (room) {
+        room.setRoomUsers(username, userIndex);
+      } else {
+        console.error(ErrorMessages.roomNotFound);
+      }
     } else {
-      console.error(ErrorMessages.roomNotFound);
+      console.error(ErrorMessages.userIsInRoom(username, roomId));
     }
+  }
+
+  getAllUsers() {
+    return this.rooms.reduce<RoomUser[]>((allUsers, room) => {
+      return allUsers.concat(room.roomUsers);
+    }, []);
+  }
+  checkUserInOtherRooms(username: string): RoomUser | undefined {
+    return this.getAllUsers().find((e) => e.name === username);
   }
 }
 

@@ -7,7 +7,7 @@ export class Game {
   playerOneId: number | null;
   playerTwoId: number | null;
   constructor(roomId: number) {
-    this.gameId = this.roomId = roomId;
+    this.roomId = roomId;
     this.init();
   }
 
@@ -16,6 +16,7 @@ export class Game {
     if (ids) {
       this.playerOneId = ids.playerOneId;
       this.playerTwoId = ids.playerTwoId;
+      this.gameId = Date.now();
     } else {
       console.error(ErrorMessages.playersNotFound);
     }
