@@ -1,4 +1,7 @@
 # dependencies
+
+.env
+
 /node_modules
 
 # System Files
