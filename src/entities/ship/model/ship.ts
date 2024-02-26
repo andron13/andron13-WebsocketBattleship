@@ -1,3 +1,4 @@
+import { Position } from '../../../types';
 import { positionsAreEqual } from '../service/shipService';
 
 export class Ship {
@@ -66,10 +67,6 @@ export class Ship {
   }
 }
 
-export type Position = {
-  x: number;
-  y: number;
-};
 export type ShipType = 'small' | 'medium' | 'large' | 'huge';
 
 export enum CellState {

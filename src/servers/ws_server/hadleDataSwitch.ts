@@ -7,7 +7,7 @@ import {
   regUserHandler,
   singlePlay,
 } from './callToAction';
-import { attack, randomAttack } from './callToAction/attackHandler';
+import { getAttack, randomAttack } from './callToAction/attackHandler';
 
 export const handleData = (message: Message, wsClient: WebSocketWithId) => {
   switch (message.type) {
@@ -24,7 +24,7 @@ export const handleData = (message: Message, wsClient: WebSocketWithId) => {
       addShips(message, wsClient); // done
       break;
     case MessageTypesWS.attack: //
-      attack(message, wsClient);
+      getAttack(message, wsClient);
       break;
     case MessageTypesWS.randomAttack: //(shoot, kill, miss)
       randomAttack(message, wsClient);

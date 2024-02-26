@@ -1,3 +1,4 @@
+import { Position } from '../../../types';
 import { ErrorMessages } from '../../../utils/errors';
 import { rooms } from '../../room';
 import { Ship } from '../../ship/model/ship';
@@ -15,6 +16,9 @@ export class Game {
     this.init();
   }
 
+  attackControl(position: Position, indexPlayer: number) {}
+
+  isGameOver() {}
   init() {
     const ids = rooms.findOne(this.roomId)?.getPlayerIDs();
     if (ids) {
@@ -39,6 +43,16 @@ export class Game {
       console.log(ErrorMessages.playerNotFound);
     }
   }
+  getShips(playerId: number) {
+    if (playerId === this.playerOneId) {
+      return this.playerOneShips;
+    } else if (playerId === this.playerTwoId) {
+      return this.playerTwoShips;
+    } else {
+      console.log(ErrorMessages.playerNotFound);
+      return [];
+    }
+  }
 
   toString(): string {
     let result =
@@ -57,15 +71,5 @@ export class Game {
       result += ship.toString() + '\n';
     });
     return result;
-  }
-  getShips(playerId: number) {
-    if (playerId === this.playerOneId) {
-      return this.playerOneShips;
-    } else if (playerId === this.playerTwoId) {
-      return this.playerTwoShips;
-    } else {
-      console.log(ErrorMessages.playerNotFound);
-      return [];
-    }
   }
 }

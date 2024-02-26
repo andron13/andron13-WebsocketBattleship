@@ -125,3 +125,8 @@ export interface OnePlayerRooms {
     },
   ];
 }
+
+export type Position = {
+  x: number;
+  y: number;
+};

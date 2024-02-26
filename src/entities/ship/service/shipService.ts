@@ -1,15 +1,9 @@
+import { Position } from '../../../types';
 import { games } from '../../game/service/gameService';
-import { Cell, Position } from '../model/ship';
 
-export const attack = (gameID, position, indexPlayer) => {
+export const attackShip = (gameID, position, indexPlayer) => {
   const game = games.findOne(gameID);
   if (!game) return;
-  const ships = game.getShips(indexPlayer);
-  const shipsCells: Cell[] = ships.flatMap((ship) => ship.cells);
-  if (shipsCells.some((e) => positionsAreEqual(e.position, position))) {
-  } else {
-    return;
-  }
 };
 
 export const positionsAreEqual = (pos1: Position, pos2: Position): boolean => {
